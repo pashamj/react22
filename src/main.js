@@ -7,7 +7,7 @@ export const Page = () => {
 	const [step, setStep] = useState({data})
 	const [activeIndex, setActiveIndex] = useState('')
 	let steps = [1,2,3,4,5,6]
-	setActiveIndex(steps)
+
 
 
 
@@ -29,7 +29,7 @@ export const Page = () => {
 					</div>
 					<ul className={styles.stepsList}>
 						{/* Выводите <li> с помощью массива steps и метода map(), подставляя в разметку нужные значения и классы */}
-						<li className={styles.stepsItem + steps.map(()) + styles.done}>
+						<li className={styles.stepsItem + steps + styles.done}>
 							{/* Для того, чтобы вычислить необходимый класс используйте активный индекс, текущий индекс, а также тернарные операторы */}
 							<button className={styles.stepsItemButton}>1</button>
 							{/* При клике на кнопку установка выбранного шага в качестве активного */}
