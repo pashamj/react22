@@ -5,18 +5,29 @@ import {useState} from "react";
 export const Page = () => {
 
 	const [step, setStep] = useState({data})
-	const [activeIndex, setActiveIndex] = useState('')
-	let steps = [1,2,3,4,5,6]
+	const [activeIndex, setActiveIndex] = useState(0)
+	let steps = [0,1,2,3]
 
+	const isFirstStep = 0
+	const isLastStep = 3
 
+	const handleNext = () => {
+		if (activeIndex < steps.length - 1) {
+			setActiveIndex(activeIndex + 1);
+		} else {
+			// Логика для "Начать сначала"
+			setActiveIndex(0);
+		}
+	};
 
-
-
-	// Можно задать 2 состояния — steps и activeIndex
-
-	// И определить 3 обработчика: Клик назад, Клик вперед, Начать сначала
-
-	// И 2 переменных-флага — находимся ли мы на первом шаге, и находимся ли на последнем
+	const handleBack = () => {
+		if (activeIndex > 0) {
+			setActiveIndex(activeIndex - 1);
+		}
+	};
+	const handleReset = () => {
+		setActiveIndex(0);
+	};
 
 	return (
 		<div className={styles.container}>
@@ -24,18 +35,17 @@ export const Page = () => {
 				<h1>Инструкция по готовке пельменей</h1>
 				<div className={styles.steps}>
 					<div className={styles.stepsContent}>
-						{/* Для получения активного контента использйте steps и activeIndex */}
-						Контент соответственный шагу. Сейчас активен шаг 3
+						{`Контент соответственный шагу. Сейчас активен шаг ${activeIndex + 1}`}
 					</div>
 					<ul className={styles.stepsList}>
 						{/* Выводите <li> с помощью массива steps и метода map(), подставляя в разметку нужные значения и классы */}
-						<li className={styles.stepsItem + steps + styles.done}>
+						<li className={styles.stepsItem + ' ' + styles.done}>
 							{/* Для того, чтобы вычислить необходимый класс используйте активный индекс, текущий индекс, а также тернарные операторы */}
-							<button className={styles.stepsItemButton}>1</button>
+							<button className={styles.stepsItemButton} >1</button>
 							{/* При клике на кнопку установка выбранного шага в качестве активного */}
 							Шаг 1
 						</li>
-						<li className={styles.stepsItem + ' ' + styles.done}>
+						<li className={styles.stepsItem + '   ' + styles.done}>
 							<button className={styles.stepsItemButton}>2</button>
 							Шаг 2
 						</li>
@@ -57,12 +67,8 @@ export const Page = () => {
 						</li>
 					</ul>
 					<div className={styles.buttonsContainer}>
-						<button className={styles.button}>Назад</button>
-						<button className={styles.button}>
-							Далее
-							{/* "Начать сначала", можно сделать этой же кнопкой, просто подменять обработчик и текст в зависимости от условия */}
-							{/* Или заменять всю кнопку в зависимости от условия */}
-						</button>
+						<button  styles={styles.button} onClick={handleNext} disabled={activeIndex === 0}>Назад</button>
+						<button onClick={handleBack}>{activeIndex === steps.length-1 ? "Начать сначала" : "Далеее"}</button>
 					</div>
 				</div>
 			</div>
